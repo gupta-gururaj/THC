@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/rpc"
 	"os"
+	"provisional-service/model"
 
 	"github.com/joho/godotenv"
 )
@@ -20,15 +21,15 @@ func main() {
 		log.Fatal(err)
 	}
 	// line := []byte(`hello`)
-	room := &Room{
+	room := &model.Room{
 		Type: "open",
 		Name: "room1",
-		State: State{
+		State: model.State{
 			Occupancy: "Moderate",
 			Mode:      "mode1",
 			IPM:       "ipm-1",
 		},
-		SetPoint: SetPoint{
+		SetPoint: model.SetPoint{
 			Temperature:      20.7,
 			Humidification:   "xyz",
 			Dehumidification: "abc",
@@ -36,8 +37,8 @@ func main() {
 		},
 	}
 	fmt.Println(room)
-	var reply Reply
-	var pLoad Payload
+	var reply model.Reply
+	var pLoad model.Payload
 	pLoad.Event = "CREATE_ROOM"
 	pLoad.Data = *room
 	byteData, err := json.Marshal(pLoad)
