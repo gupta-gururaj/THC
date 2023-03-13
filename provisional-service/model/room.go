@@ -4,6 +4,10 @@ type Reply struct {
 	Data string
 }
 
+type Request struct {
+	Type string `json:"type"`
+}
+
 type Room struct {
 	Id       string
 	Type     string

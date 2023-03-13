@@ -1,14 +1,13 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
-	"log"
-	"net/rpc"
 	"os"
-	"provisional-service/model"
 
+	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+
+	"provisional-service/controller"
 )
 
 func main() {
@@ -16,38 +15,8 @@ func main() {
 	if err != nil {
 		fmt.Println("Error in loading env variables", err)
 	}
-	client, err := rpc.Dial("tcp", os.Getenv("ADDRESS")+":"+os.Getenv("PORT"))
-	if err != nil {
-		log.Fatal(err)
-	}
-	// line := []byte(`hello`)
-	room := &model.Room{
-		Type: "open",
-		Name: "room1",
-		State: model.State{
-			Occupancy: "Moderate",
-			Mode:      "mode1",
-			IPM:       "ipm-1",
-		},
-		SetPoint: model.SetPoint{
-			Temperature:      20.7,
-			Humidification:   "xyz",
-			Dehumidification: "abc",
-			Co2:              4.01,
-		},
-	}
-	fmt.Println(room)
-	var reply model.Reply
-	var pLoad model.Payload
-	pLoad.Event = "CREATE_ROOM"
-	pLoad.Data = *room
-	byteData, err := json.Marshal(pLoad)
-	if err != nil {
-		fmt.Println("Error in Marshaling", err)
-	}
-	err = client.Call("Listener.GetLine", byteData, &reply)
-	if err != nil {
-		log.Fatal(err)
-	}
-	log.Printf("Reply: %v, Data: %v", reply, reply.Data)
+
+	r := gin.Default()
+	r.POST("/ping", controller.ABC)
+	r.Run(os.Getenv("ADDRESS") + ":" + os.Getenv("HTTPPORT"))
 }
