@@ -1,6 +1,8 @@
 package main
 
 import (
+	"configuartion-service/model"
+	"configuartion-service/util"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -13,9 +15,9 @@ import (
 
 type Listener int
 
-func (l *Listener) GetLine(line []byte, reply *Reply) error {
+func (l *Listener) GetLine(line []byte, reply *model.Reply) error {
 	rv := string(line)
-	var payLoad Payload
+	var payLoad model.Payload
 	err := json.Unmarshal(line, &payLoad)
 	if err != nil {
 		fmt.Println("Error in Unmarshaling the payload", err)
@@ -23,8 +25,8 @@ func (l *Listener) GetLine(line []byte, reply *Reply) error {
 
 	f, _ := payLoad.Data.(map[string]interface{})
 	if payLoad.Event == "CREATE_ROOM" {
-		createRoom(f)
-		*reply = Reply{rv}
+		util.CreateRoom(f)
+		*reply = model.Reply{rv}
 	}
 	return nil
 }

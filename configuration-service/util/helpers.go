@@ -1,8 +1,8 @@
-package main
+package util
 
 import "fmt"
 
-func createRoom(data map[string]interface{}) {
+func CreateRoom(data map[string]interface{}) {
 	// Entry in DB
 	fmt.Println("In Create Room")
 	fmt.Println(data)
