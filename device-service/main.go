@@ -9,7 +9,7 @@ import (
 
 	"github.com/joho/godotenv"
 
-	"configuartion-service/controller"
+	"device-service/controller"
 )
 
 func main() {

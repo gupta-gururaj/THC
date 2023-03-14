@@ -20,7 +20,6 @@ func ABC(c *gin.Context) {
 	if err != nil {
 		fmt.Println("ERROR Reading data from request: ", err)
 	}
-	fmt.Println("ctx", string(jsonData))
 	err = json.Unmarshal(jsonData, &req)
 	if err != nil {
 		fmt.Println("ERROR Unmarshaling data from request: ", err)
@@ -45,11 +44,11 @@ func ABC(c *gin.Context) {
 			Co2:              4.01,
 		},
 	}
-	fmt.Println(room)
+	// fmt.Println(room)
 	var reply model.Reply
 	var pLoad model.Payload
 	pLoad.Event = "CREATE_ROOM"
-	pLoad.Data = *room
+	pLoad.RoomData = *room
 	byteData, err := json.Marshal(pLoad)
 	if err != nil {
 		fmt.Println("Error in Marshaling", err)

@@ -9,7 +9,7 @@ type Request struct {
 }
 
 type Room struct {
-	Id       string
+	UUID     string
 	Type     string
 	Name     string
 	State    State
@@ -29,6 +29,6 @@ type SetPoint struct {
 }
 
 type Payload struct {
-	Event string
-	Data  interface{}
+	Event    string
+	RoomData Room
 }
